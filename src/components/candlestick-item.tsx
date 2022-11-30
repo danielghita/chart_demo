@@ -23,7 +23,8 @@ export default function Candlestick(props: CandlestickProps) {
 	} = props;
 	const isGrowing = open <= close;
 	const color = isGrowing ? 'green' : 'red';
-	const ratio = Math.abs(height / (open - close));
+	// open === close needs to be handled in a better way, but for now this prevents NaN errors
+	const ratio = open === close ? 1 : Math.abs(height / (open - close));
 	const d = `
 		M ${x},${y}
 		L ${x},${y + height}

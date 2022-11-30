@@ -10,7 +10,7 @@ import Candlestick from './candlestick-item';
 import { OHLC, OHLC2 } from '../data/types';
 
 
-const prepareData = (rawData: OHLC[]): [OHLC2[], { min: number, max: number }] => {
+const prepareData = (rawData?: OHLC[]): [OHLC2[], { min: number, max: number }] => {
 	if (!rawData?.length) {
 		return [[], { min: 0, max: 1 }];
 	}
@@ -37,7 +37,7 @@ const prepareData = (rawData: OHLC[]): [OHLC2[], { min: number, max: number }] =
 }
 
 interface CandlestickChartProps {
-	data: OHLC[];
+	data?: OHLC[];
 	height?: number;
 	width?: number;
 }
