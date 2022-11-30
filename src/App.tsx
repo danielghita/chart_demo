@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import AppMain from './components/app-main';
+import './app.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const queryClient = new QueryClient();
+
+/**
+ * Create an app with the standard wrappers required (ReactQuery, Intl, Redux, etc)
+ */
+function AppWithWrappers() {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<AppMain />
+		</QueryClientProvider>
+	);
 }
 
-export default App;
+export default AppWithWrappers;
