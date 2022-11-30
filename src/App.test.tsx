@@ -28,6 +28,12 @@ global.fetch = jest.fn(async () => ({
 	}
 }) as Response);
 
+// empty mock
+window.ResizeObserver = jest.fn(() => ({
+	disconnect() {},
+	observe() {},
+})) as any;
+
 afterEach(() => {
 	// clear caches after each test
 	queryClient.clear();
