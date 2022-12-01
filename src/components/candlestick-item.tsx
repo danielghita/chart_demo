@@ -1,4 +1,4 @@
-import { OHLC, OHLC2 } from '../data/types';
+import { OHLC2 } from '../data/types';
 
 
 interface CandlestickProps extends OHLC2 {

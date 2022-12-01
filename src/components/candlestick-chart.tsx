@@ -38,8 +38,8 @@ const prepareData = (rawData?: OHLC[]): [OHLC2[], { min: number, max: number }] 
 
 interface CandlestickChartProps {
 	data?: OHLC[];
-	height?: number;
-	width?: number;
+	height: number;
+	width: number;
 }
 
 export default function CandlestickChart({ data: rawData, height, width }: CandlestickChartProps) {
