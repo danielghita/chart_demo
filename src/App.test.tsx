@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App, { queryClient } from './app';
 import { act } from 'react-dom/test-utils';
 
@@ -56,4 +56,23 @@ test('StockInfo fetches data on load', async () => {
 		jest.advanceTimersByTime(100);
 	});
 	expect(fetch).toHaveBeenCalled();
+});
+
+test('StockInfo fetches data with the updated time interval', async () => {
+	render(<App />);
+	await act(() => {
+		// wait for initial data load
+		jest.advanceTimersByTime(100);
+	});
+	expect(fetch).toHaveBeenCalledWith('/data.json?symbol=SPY&start=2021-03-04&end=2022-03-03');
+	// @ts-expect-error fetch is mocked
+	fetch.mockClear();
+	const startInput = screen.queryByLabelText('Start:');
+	// react-query doesn't seem to play nice with fake timers so this prints warnings in the console (but the test passes)
+	fireEvent.change(startInput!, {target: {value: '2021-07-01'}});
+	await act(() => {
+		// wait for the updated data load
+		jest.advanceTimersByTime(100);
+	});
+	expect(fetch).toHaveBeenCalledWith('/data.json?symbol=SPY&start=2021-07-01&end=2022-03-03');
 });
